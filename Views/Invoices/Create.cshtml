@@ -1,0 +1,94 @@
+@{
+    ViewData["Title"] = "Invoices | InvoicesApp";
+}
+
+<div>
+    <button type="button" class="btn btn-dark mb-3" onclick="newInvoice()">Nueva factura</button>
+
+    <div class="border rounded p-4">
+        <form id="form-invoice" onsubmit="createInvoice(event)">
+            <div class="row mb-3">
+                <div class="col-lg-3 col-6">
+                    <label for="client" class="form-label">Cliente</label>
+                    <select class="form-select" id="invoice-client" name="invoice-client"
+                        aria-label="Seleccione un cliente">
+                        <option selected>Seleccione un cliente</option>
+                        @foreach (var item in ViewBag.Customers)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <label for="invoice-number" class="form-label">Número de factura</label>
+                    <input type="number" class="form-control" id="invoice-number" name="invoice-number" min="0">
+                </div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-dark" onclick="addProduct()">
+                    Agregar producto
+                </button>
+            </div>
+            <div>
+                <table class="table table-striped align-middle" id="products-table"
+                    aria-describedby="details-invoice-table-description">
+                    <thead>
+                        <tr>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Precio Unitario</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Imagen</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select class="form-select" aria-label="Seleccione un producto"
+                                    onchange="selectProduct(this);">
+                                    <option value="" selected>Seleccione un producto</option>
+                                    @foreach (var item in ViewBag.Products)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                </select>
+                            </td>
+                            <td class="text-end">0</td>
+                            <td class="text-center">
+                                <input type="number" class="form-control" min="1" value="1"
+                                    onchange="updateQuantity(this)">
+                            </td>
+                            <td class="text-center"></td>
+                            <td class="text-end">0</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3"></td>
+                            <th scope="row">Sub total</td>
+                            <td class="text-end value-field">0</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <th scope="row">Impuestos (19%)</td>
+                            <td class="text-end value-field">0</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <th scope="row">Total</td>
+                            <td class="text-end value-field">0</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="text-end">
+                <button type="submit" class="btn btn-dark">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/invoices/create.js"></script>
+}

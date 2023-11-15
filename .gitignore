@@ -1,0 +1,27 @@
+# Carpeta bin generada por compilaciones
+bin/
+
+# Carpeta obj generada por compilaciones
+obj/
+
+# Carpeta de dependencias generada por el administrador de paquetes NuGet
+packages/
+
+# Carpeta temporal generada por Visual Studio Code
+.vscode/
+
+# Carpeta de usuario y configuración
+.vs/
+
+# Carpeta de salida de compilación
+publish/
+
+# Carpeta de configuración local para JetBrains Rider
+.idea/
+
+# Archivos de configuración específicos de usuario
+*.suo
+*.user
+*.userosscache
+*.suo
+*.sln.docstates

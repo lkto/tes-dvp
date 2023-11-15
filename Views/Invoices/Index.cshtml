@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Invoices | InvoicesApp";
+}
+
+<link rel="stylesheet" href="~/@(nameof(InvoicesApp)).styles.css" />
+
+<div>
+    <div class="mb-3 d-flex justify-content-between">
+        <div>
+            <h5>Tipo de Busqueda:</h5>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radio-option" value="client"
+                    id="invoice-client-option" checked>
+                <label class="form-check-label" for="invoice-client-option">
+                    Cliente
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radio-option" value="number"
+                    id="invoice-number-option">
+                <label class="form-check-label" for="invoice-number-option">
+                    Número de factura
+                </label>
+            </div>
+        </div>
+        <div>
+            <a class="btn btn-dark" asp-area="" asp-controller="Invoices" asp-action="Create">Crear factura</a>
+        </div>
+    </div>
+    <div class="border rounded p-4">
+        <div class="row mb-3">
+            <div class="col-lg-3 col-6">
+                <label for="client" class="form-label">Cliente</label>
+                <select class="form-select" id="invoice-client" aria-label="Seleccione un cliente">
+                    <option value="" selected>Seleccione un cliente</option>
+                    @foreach (var item in ViewBag.Customers)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-lg-3 col-6">
+                <label for="invoice-number" class="form-label">Número de factura</label>
+                <input type="number" class="form-control" id="invoice-number" min="0" disabled>
+            </div>
+            <div class="col-lg-6 col-12 d-flex align-items-end">
+                <button type="button" class="btn btn-dark mt-3" onclick="searchInvoices()">
+                    Buscar
+                </button>
+            </div>
+        </div>
+        <div>
+            <table class="table table-striped" id="invoices-table" aria-describedby="invoices-table-description">
+                <thead>
+                    <tr>
+                        <th scope="col">Número de factura</th>
+                        <th scope="col">Fecha de emisión</th>
+                        <th scope="col">Total facturado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center">@item.Number</td>
+                            <td>@item.Date</td>
+                            <td class="text-end">@item.Total.ToString("N2")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/invoices/invoices.js"></script>
+}
